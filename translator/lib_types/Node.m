@@ -26,7 +26,11 @@ classdef Node < handle
     methods(Static)
         function [] = connect(node1,out_pin_no,node2,in_pin_no,delay)
             node1.output_connections.addConnection(out_pin_no,node2,in_pin_no,delay);
-            node2.input_connections.addConnection(in_pin_no,node1,out_pin_no,delay);
+            already_exists = node2.input_connections.addConnection(in_pin_no,node1,out_pin_no,delay);
+
+            if already_exists == 1
+                error("ERROR (Node Connect): %s's input pin %d cannot be connected to 2 wires",node2.name,in_pin_no);
+            end
         end
 
         function name = getInputName(node,in_pin_num)
