@@ -1,4 +1,7 @@
 function [] = gen_coder_fcn(module_name,input_nodes,circuit_nodes,output_nodes)
+    %Checking Node Connection Errors
+    err_check_node_connection([input_nodes circuit_nodes output_nodes]);
+    
     %Collecting Arguments
     input_args = cell(length(input_nodes),1);
     for i = 1:length(input_args)
