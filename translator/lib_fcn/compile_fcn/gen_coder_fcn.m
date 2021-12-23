@@ -1,7 +1,4 @@
 function [] = gen_coder_fcn(module_name,input_nodes,circuit_nodes,output_nodes)
-    %Checking Node Validity
-    err_check_node_validity([input_nodes circuit_nodes output_nodes])
-
     %Checking Node Connection Errors
     err_check_node_connection([input_nodes circuit_nodes output_nodes]);
     
@@ -59,10 +56,8 @@ function [] = gen_coder_fcn(module_name,input_nodes,circuit_nodes,output_nodes)
             for j = 1:regs{i}.reg_cnt
                 if strcmp(regs{i}.type,'num')
                     fprintf(f_fcn,sprintf(' %s_reg_%d = 0;',regs{i}.name,j));
-                elseif strcmp(regs{i}.type,'bin')
-                    fprintf(f_fcn,sprintf(' %s_reg_%d = false;',regs{i}.name,j));
                 else
-                    error("ERROR (Output Type Check): %s's output type is not recognized",regs{i}.name);
+                    fprintf(f_fcn,sprintf(' %s_reg_%d = false;',regs{i}.name,j));
                 end
             end
         end

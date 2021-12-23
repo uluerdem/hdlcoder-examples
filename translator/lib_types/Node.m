@@ -15,16 +15,8 @@ classdef Node < handle
             this.name = name;
             this.input_pin_cnt = input_pin_cnt;
             this.output_pin_cnt = output_pin_cnt;
-            if iscell(output_names)
-                this.output_names = output_names;
-            else
-                error('%s''s output_names must be a cell',name);
-            end
-            if iscell(output_types)
-                this.output_types = output_types;
-            else
-                error('%s''s output_types must be a cell',name);
-            end
+            this.output_names = output_names;
+            this.output_types = output_types;
             this.node_op = node_op;
             this.input_connections = Connection(input_pin_cnt);
             this.output_connections = Connection(output_pin_cnt);
