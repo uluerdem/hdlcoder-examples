@@ -43,15 +43,17 @@ function [] = fir_gen(name,coef_no,type)
             %Input Connections
             for i = 1:coef_no
                 Node.connect(input_nodes(1),1,circuit_nodes(i),2,0);
-                Node.connect(input_nodes(i+1),1,circuit_nodes(i),1,0);
+                Node.connect(input_nodes(end-i+1),1,circuit_nodes(i),1,0);
             end
             
             %Circuit Connections
             Node.connect(circuit_nodes(1),1,circuit_nodes(coef_no+1),1,1);
-            Node.connect(circuit_nodes(2),1,circuit_nodes(coef_no+1),2,0);
+            for i = 2:coef_no
+                Node.connect(circuit_nodes(i),1,circuit_nodes(coef_no+i-1),2,0);
+            end
+
             for i = 1:coef_no-2
-                Node.connect(circuit_nodes(i+2),1,circuit_nodes(i+coef_no+1),1,1);
-                Node.connect(circuit_nodes(i+coef_no),1,circuit_nodes(i+coef_no+1),2,0);
+                Node.connect(circuit_nodes(coef_no+i),1,circuit_nodes(coef_no+i+1),1,1);
             end
             
             %Output Connections
