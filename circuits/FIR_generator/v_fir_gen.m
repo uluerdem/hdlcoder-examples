@@ -1,4 +1,4 @@
-function [] = fir_gen(name,coef_no,type)
+function [] = v_fir_gen(name,coef_no,type)
     %Input Nodes
     input_nodes(1) = Node(sprintf('%s_in',name),0,1,@basic_buffer,{sprintf('%s_in',name)},{'num'});
 
