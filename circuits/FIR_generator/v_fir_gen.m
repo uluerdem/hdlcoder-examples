@@ -1,4 +1,4 @@
-function [] = v_fir_gen(name,coef_no,type)
+function [] = v_fir_gen(name,coef_no,type,isInline)
     %Input Nodes
     input_nodes(1) = Node(sprintf('%s_in',name),0,1,@basic_buffer,{sprintf('%s_in',name)},{'num'});
 
@@ -10,11 +10,13 @@ function [] = v_fir_gen(name,coef_no,type)
         %Multiplication Nodes
     for i = 1:coef_no
         circuit_nodes(i) = Node(sprintf('%s_mul_%d',name,i),2,1,@basic_mul,{sprintf('%s_mul_%d',name,i)},{'num'});
+        circuit_nodes(i).setInline(isInline);
     end
 
         %Addition Nodes
     for i = 1:coef_no-1
         circuit_nodes(i+coef_no) = Node(sprintf('%s_add_%d',name,i),2,1,@basic_add,{sprintf('%s_add_%d',name,i)},{'num'});
+        circuit_nodes(i+coef_no).setInline(isInline);
     end
 
     %Output Node

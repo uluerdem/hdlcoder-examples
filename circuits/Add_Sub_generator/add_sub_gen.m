@@ -1,14 +1,16 @@
-function [] = add_sub_gen(name,rel_mtx,reg_mtx)
+function [] = add_sub_gen(name,rel_mtx,reg_mtx,isInline)
     in_cnt = size(rel_mtx,2);
     out_cnt = size(rel_mtx,1);
    
     %Creating IO Nodes
     for i = 1:in_cnt
         input_nodes(i) = Node(sprintf('%s_in_%d',name,i),0,1,@basic_buffer,{sprintf('%s_in_%d',name,i)},{'num'});
+        input_nodes(i).setInline(isInline);
     end
    
     for i = 1:out_cnt
         output_nodes(i) = Node(sprintf('%s_out_%d',name,i),1,0,@basic_buffer,{sprintf('%s_out_%d',name,i)},{'num'});
+        output_nodes(i).setInline(isInline);
     end
    
     %Generating Sum Lists
@@ -51,6 +53,7 @@ function [] = add_sub_gen(name,rel_mtx,reg_mtx)
     for i = 1:length(sum_arg_nodes)
         for j = 1:length(sum_arg_nodes{i})
             circuit_nodes(k) = sum_arg_nodes{i}(j);
+            circuit_nodes(k).setInline(isInline);
             k = k + 1;
         end
     end
@@ -58,6 +61,7 @@ function [] = add_sub_gen(name,rel_mtx,reg_mtx)
     for i = 1:length(sum_nodes)
         for j = 1:length(sum_nodes{i})
             circuit_nodes(k) = sum_nodes{i}(j);
+            circuit_nodes(k).setInline(isInline);
             k = k + 1;
         end
     end

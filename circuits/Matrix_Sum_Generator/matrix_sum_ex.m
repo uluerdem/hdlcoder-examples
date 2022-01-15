@@ -2,13 +2,13 @@ name = "matrix_ex_2_3";
 rel_mtx = [1 0 1;1 -1 1];
 reg_mtx = [0 0 1;0 0 0];
 
-matrix_sum_gen(name,rel_mtx,reg_mtx);
+matrix_sum_gen(name,rel_mtx,reg_mtx,true);
 
 name = "matrix_ex_5_5";
 rel_mtx = [1 1 0 0 -1;1 1 -1 1 0;1 0 -1 0 1;-1 0 1 1 0;0 0 1 -1 1];
 reg_mtx = [0 0 0 0 1;0 0 0 0 0;1 0 2 0 0;0 0 1 1 0;0 0 1 3 1];
 
-matrix_sum_gen(name,rel_mtx,reg_mtx);
+matrix_sum_gen(name,rel_mtx,reg_mtx,true);
 
 name = "matrix_ex_4_9";
 rel_mtx = ...
@@ -22,7 +22,7 @@ reg_mtx = ...
          0 0 1 0 0 1 0 0 1;
          0 0 0 0 0 0 0 0 0];
 
-matrix_sum_gen(name,rel_mtx,reg_mtx);
+matrix_sum_gen(name,rel_mtx,reg_mtx,true);
 
 name = "matrix_ex_6_18";
 rel_mtx = ...
@@ -41,4 +41,4 @@ reg_mtx = ...
     0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0;
     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0];
 
-matrix_sum_gen(name,rel_mtx,reg_mtx);
+matrix_sum_gen(name,rel_mtx,reg_mtx,true);
