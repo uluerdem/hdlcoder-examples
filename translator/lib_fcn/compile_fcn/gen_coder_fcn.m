@@ -67,19 +67,24 @@ function [] = gen_coder_fcn(module_name,input_nodes,circuit_nodes,output_nodes)
     %Node Assignment
     for i = 1:length(circuit_nodes)
         i_node = node_order(i);
-        curr_eq = sprintf('\t[');
-        for j = 1:length(node_equations{i_node}.outputs)
-            curr_eq = sprintf('%s%s,',curr_eq,node_equations{i_node}.outputs{j});
+        if circuit_nodes(i_node).is_inline
+            curr_eq = collect_inline_fcn(node_equations{i_node},1);
+            curr_eq = sprintf('%s\n',curr_eq);
+        else
+            curr_eq = sprintf('\t[');
+            for j = 1:length(node_equations{i_node}.outputs)
+                curr_eq = sprintf('%s%s,',curr_eq,node_equations{i_node}.outputs{j});
+            end
+            curr_eq = curr_eq(1:end-1);
+    
+            curr_eq = sprintf('%s] = %s(',curr_eq,node_equations{i_node}.op_name);
+            for j = 1:length(node_equations{i_node}.inputs)
+                curr_eq = sprintf('%s%s,',curr_eq,node_equations{i_node}.inputs{j});
+            end
+            curr_eq = curr_eq(1:end-1);
+    
+            curr_eq = sprintf('%s);\n',curr_eq);
         end
-        curr_eq = curr_eq(1:end-1);
-
-        curr_eq = sprintf('%s] = %s(',curr_eq,node_equations{i_node}.op_name);
-        for j = 1:length(node_equations{i_node}.inputs)
-            curr_eq = sprintf('%s%s,',curr_eq,node_equations{i_node}.inputs{j});
-        end
-        curr_eq = curr_eq(1:end-1);
-
-        curr_eq = sprintf('%s);\n',curr_eq);
         fprintf(f_fcn,curr_eq);
     end
     fprintf(f_fcn,'\n');

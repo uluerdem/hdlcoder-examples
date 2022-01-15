@@ -6,6 +6,7 @@ classdef Node < handle
         output_names;
         output_types;
         node_op;
+        is_inline = false;
         input_connections = Connection.empty;
         output_connections = Connection.empty;
     end
@@ -20,6 +21,10 @@ classdef Node < handle
             this.node_op = node_op;
             this.input_connections = Connection(input_pin_cnt);
             this.output_connections = Connection(output_pin_cnt);
+        end
+
+        function this = setInline(this,state)
+            this.is_inline = state;
         end
     end
 
